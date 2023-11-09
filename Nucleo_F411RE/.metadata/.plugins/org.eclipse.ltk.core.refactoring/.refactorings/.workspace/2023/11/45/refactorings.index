@@ -1,0 +1,5 @@
+1699392160328	Delete resource 'UART/Core/Src/stm32f4xx_hal_msp.c'
+1699392163876	Delete resource 'UART/Core/Src/stm32f4xx_it.c'
+1699392169544	Delete resource 'UART/Core/Src/main.c'
+1699392176511	Delete resource 'UART/Core/Inc/main.h'
+1699392187749	Delete resource 'UART/Core/Inc/stm32f4xx_it.h'

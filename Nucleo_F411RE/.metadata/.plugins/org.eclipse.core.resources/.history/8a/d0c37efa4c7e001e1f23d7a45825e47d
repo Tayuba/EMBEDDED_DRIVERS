@@ -1,0 +1,22 @@
+/*
+ * msp.c
+ *
+ *  Created on: Nov 7, 2023
+ *      Author: user
+ */
+#include "stm32f4xx_hal.h"
+
+void HAL_MspInit(void){
+	/********	Low Level Processor Specific Intit **********/
+	//1. Configure the priority grouping of ARM CORTEX Mx processor
+	HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+
+	//2. Enable required processor system exceptions
+	SCB->SHCSR |=  0x7 << 16; // enabled: usgfaultene, busfaultena, and memfaulten system exception
+
+	//3. Configure the priority of the system exceptions
+	HAL_NVIC_SetPriority(MemoryManagement_IRQn,0, 0);
+	HAL_NVIC_SetPriority(BusFault_IRQn,0, 0);
+	HAL_NVIC_SetPriority(UsageFault_IRQn,0, 0);
+
+}
