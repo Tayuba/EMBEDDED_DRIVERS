@@ -1,0 +1,4 @@
+../Core/Src/main_app.c:25:5:main	112	static
+../Core/Src/main_app.c:60:6:SystemClock_Config_HSE	88	static
+../Core/Src/main_app.c:170:6:UART2_Init	8	static
+../Core/Src/main_app.c:189:6:Error_handler	4	static

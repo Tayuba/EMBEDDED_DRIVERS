@@ -1,0 +1,53 @@
+/*
+ * main.c
+ *
+ *  Created on: 02-Jun-2020
+ *      Author: Ayuba
+ */
+
+#include<string.h>
+#include<stdio.h>
+#include "stm32f4xx_hal.h"
+#include "main_app.h"
+
+#define TRUE 1
+#define FALSE 0
+
+
+void Error_handler(void);
+void SystemClock_Config(void);
+void TIMER_Init(void);
+TIM_HandleTypeDef htimer3;
+
+
+int main(void)
+{
+
+	HAL_Init();
+
+	SystemClock_Config_HSE(SYS_CLOCK_FREQ_100_MHZ);
+
+	TIMER_Init();
+
+	return 0;
+}
+
+
+void SystemClock_Config(void){
+
+}
+
+void TIMER_Init(void){
+	htimer3.Instance = TIM3;
+	htimer3.Init.Prescaler = 24;
+	htimer3.Init.Period	= 64000 -1;
+
+	if(HAL_TIM_Base_Init(&htimer3) != HAL_OK){
+		Error_handler();
+	}
+}
+
+void Error_handler(void){
+	while(1);
+}
+

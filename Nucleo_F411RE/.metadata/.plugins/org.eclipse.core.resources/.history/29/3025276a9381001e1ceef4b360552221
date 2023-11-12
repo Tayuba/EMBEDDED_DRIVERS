@@ -1,0 +1,79 @@
+/*
+ * main.c
+ *
+ *  Created on: 02-Jun-2020
+ *      Author: Ayuba
+ */
+
+#include<string.h>
+#include<stdio.h>
+#include "stm32f4xx_hal.h"
+#include "main_app.h"
+
+#define TRUE 1
+#define FALSE 0
+
+
+void Error_handler(void);
+void SystemClock_Config(void);
+void TIMER_Init(void);
+void GPIO_Init(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+
+TIM_HandleTypeDef htimer3;
+
+
+int main(void)
+{
+
+	HAL_Init();
+
+	GPIO_Init();
+
+	SystemClock_Config();
+
+	TIMER_Init();
+
+
+	HAL_TIM_Base_Start_IT(&htimer3);
+
+	while(1);
+
+
+
+	return 0;
+}
+
+
+void SystemClock_Config(void){
+
+}
+
+void GPIO_Init(void){
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+
+	GPIO_InitTypeDef LD_GPIO;
+	LD_GPIO.Pin 	= GPIO_PIN_5;
+	LD_GPIO.Mode	= GPIO_MODE_OUTPUT_PP;
+	LD_GPIO.Pull	= GPIO_NOPULL;
+
+	HAL_GPIO_Init(GPIOA, &LD_GPIO);
+}
+
+void TIMER_Init(void){
+	htimer3.Instance = TIM3;
+	htimer3.Init.Prescaler = 24;
+	htimer3.Init.Period	= 6400 -1;
+
+	if(HAL_TIM_Base_Init(&htimer3) != HAL_OK){
+		Error_handler();
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+}
+void Error_handler(void){
+	while(1);
+}
+
