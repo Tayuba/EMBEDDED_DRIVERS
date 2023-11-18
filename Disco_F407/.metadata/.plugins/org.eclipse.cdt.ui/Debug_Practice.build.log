@@ -1,0 +1,10 @@
+22:06:27 **** Incremental Build of configuration Debug for project Debug_Practice ****
+make -j16 all 
+arm-none-eabi-size   Debug_Practice.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6312	    172	   1900	   8384	   20c0	Debug_Practice.elf
+Finished building: default.size.stdout
+ 
+
+22:06:27 Build Finished. 0 errors, 0 warnings. (took 152ms)
+
