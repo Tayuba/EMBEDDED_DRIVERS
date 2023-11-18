@@ -164,7 +164,7 @@ typedef struct {
 	__vol uint32_t LCKR;				/* GPIO port configuration lock register,						Address Offset 0x1C */
 	__vol uint32_t AFR[2];				/* GPIO alternate function low-high register AFRL[0], AFRH[1],	Address Offset 0x20 - 0x24 */
 }GPIOx_RegDef_t;
-
+N
 // GPIOx Peripheral Definition
 #define GPIOA	((GPIOx_RegDef_t*) GPIOA_BASEADDR)
 #define GPIOB	((GPIOx_RegDef_t*) GPIOB_BASEADDR)
