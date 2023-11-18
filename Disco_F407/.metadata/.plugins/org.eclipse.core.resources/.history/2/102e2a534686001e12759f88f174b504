@@ -216,8 +216,5 @@ typedef struct{
 // RCC Peripheral Definition
 #define RCC 	((RCC_RegDef_t*) RCC_BASEADDR)
 
-/**********			Clock Enable and Disable Macros					**********/
-//GPIOx Enable Macro
-#define GPIOA_PER_CLOCK_ENABLE()	( RCC->AHB1ENR |= (1 <<0 ))
 
 #endif /* INC_STM32F407_H_ */

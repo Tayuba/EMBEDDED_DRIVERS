@@ -140,10 +140,6 @@
 #define GPIOK_BASEADDR					(AHB1_BASEADDR + GPIOK_OFFSETADDR)		/* GPIOK Base Address */
 
 
-/**********			Base Addresses of RCC 		**********/
-#define RCC_BASEADDR					(AHB1_BASEADDR + RCC_OFFSETADDR)		/* RCC Base Address */
-
-
 /**********			Base Addresses of Peripheral Hanging on AHB2 Bus 		**********/
 
 
@@ -165,18 +161,18 @@ typedef struct {
 	__vol uint32_t AFR[2];				/* GPIO alternate function low-high register AFRL[0], AFRH[1],	Address Offset 0x20 - 0x24 */
 }GPIOx_RegDef_t;
 
-// GPIOx Peripheral Definition
-#define GPIOA	((GPIOx_RegDef_t*) GPIOA_BASEADDR)
-#define GPIOB	((GPIOx_RegDef_t*) GPIOB_BASEADDR)
-#define GPIOC	((GPIOx_RegDef_t*) GPIOC_BASEADDR)
-#define GPIOD	((GPIOx_RegDef_t*) GPIOD_BASEADDR)
-#define GPIOE	((GPIOx_RegDef_t*) GPIOE_BASEADDR)
-#define GPIOF	((GPIOx_RegDef_t*) GPIOF_BASEADDR)
-#define GPIOG	((GPIOx_RegDef_t*) GPIOG_BASEADDR)
-#define GPIOH	((GPIOx_RegDef_t*) GPIOH_BASEADDR)
-#define GPIOI	((GPIOx_RegDef_t*) GPIOI_BASEADDR)
-#define GPIOJ	((GPIOx_RegDef_t*) GPIOJ_BASEADDR)
-#define GPIOK	((GPIOx_RegDef_t*) GPIOK_BASEADDR)
+//Peripheral Definition
+#define GPIOA	((GPIOx_RegDef_t) GPIOA_BASEADDR)
+#define GPIOB	((GPIOx_RegDef_t) GPIOB_BASEADDR)
+#define GPIOC	((GPIOx_RegDef_t) GPIOC_BASEADDR)
+#define GPIOD	((GPIOx_RegDef_t) GPIOD_BASEADDR)
+#define GPIOE	((GPIOx_RegDef_t) GPIOE_BASEADDR)
+#define GPIOF	((GPIOx_RegDef_t) GPIOF_BASEADDR)
+#define GPIOG	((GPIOx_RegDef_t) GPIOG_BASEADDR)
+#define GPIOH	((GPIOx_RegDef_t) GPIOH_BASEADDR)
+#define GPIOI	((GPIOx_RegDef_t) GPIOI_BASEADDR)
+#define GPIOJ	((GPIOx_RegDef_t) GPIOJ_BASEADDR)
+#define GPIOK	((GPIOx_RegDef_t) GPIOK_BASEADDR)
 
 
 // RCC Definition Structures
@@ -211,13 +207,5 @@ typedef struct{
 		  uint32_t Reserved6[2];	/* Reserved: Reserved[0] and Reserved[1],						Address Offset 0x78 - 0x7C */
 	__vol uint32_t SSCGR;			/* RCC spread spectrum clock generation register,				Address Offset 0x80 */
 	__vol uint32_t PLLI2SCFGR;		/* RCC PLLI2S configuration register,							Address Offset 0x84 */
-}RCC_RegDef_t;
-
-// RCC Peripheral Definition
-#define RCC 	((RCC_RegDef_t*) RCC_BASEADDR)
-
-/**********			Clock Enable and Disable Macros					**********/
-//GPIOx Enable Macro
-#define GPIOA_PER_CLOCK_ENABLE()	( RCC->AHB1ENR |= (1 <<0 ))
-
+};
 #endif /* INC_STM32F407_H_ */
