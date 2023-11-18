@@ -85,15 +85,7 @@
 
 
 /**********			Base Addresses of Peripheral Hanging on APB1 Bus 		**********/
-#define I2C1_BASEADDR					(APB1_BASEADDR + I2C1_OFFSETADDR)		/* I2C1 Base Address */
-#define I2C2_BASEADDR					(APB1_BASEADDR + I2C2_OFFSETADDR)		/* I2C2 Base Address */
-#define I2C3_BASEADDR					(APB1_BASEADDR + I2C3_OFFSETADDR)		/* I2C3 Base Address */
-#define SPI2_BASEADDR					(APB1_BASEADDR + SPI2_I2S2_OFFSETADDR)	/* SPI2_I2S2 Base Address */
-#define SPI3_BASEADDR					(APB1_BASEADDR + SPI3_I2S3_OFFSETADDR)	/* SPI3_I2S3 Base Address */
-#define USART2_BASEADDR					(APB1_BASEADDR + USART2_OFFSETADDR)		/* USART2 Base Address */
-#define USART3_BASEADDR					(APB1_BASEADDR + USART3_OFFSETADDR)		/* USART2 Base Address */
-#define UART4_BASEADDR					(APB1_BASEADDR + UART4_OFFSETADDR)		/* UART4 Base Address */
-#define UART5_BASEADDR					(APB1_BASEADDR + UART5_OFFSETADDR)		/* UART5 Base Address */
+
 
 /**********			Base Addresses of Peripheral Hanging on APB2 Bus 		**********/
 

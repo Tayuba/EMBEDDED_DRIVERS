@@ -1,0 +1,39 @@
+/*
+ * stm32f407.h
+ *
+ *  Created on: March 17, 2023
+ *      Author: Ayuba Tahiru
+ */
+
+#ifndef INC_STM32F407_H_
+#define INC_STM32F407_H_
+
+/**********			Addresses Offsets		**********/
+#define APB2_OFFSETADDR					x00010000UL								/* Advanced Peripheral Bus Two(2) Offset */
+#define AHB1_OFFSETADDR					x00020000UL								/* Advanced High-performance Bus One(1) Offset */
+#define AHB2_OFFSETADDR					x50000000UL								/* Advanced High-performance Bus Two(2) Offset */
+#define AHB3_OFFSETADDR					xA0000000UL								/* Advanced High-performance Bus Three(3) Offset */
+
+
+/**********			Base Addresses of Flash and SRAm		**********/
+#define FLASH_BASEADDR					0x08000000UL							/* Main memory */
+#define SRAM1_BASEADDR					0x20000000UL							/* Main RAM (112KB) */
+#define SRAM2_BASEADDR					0x2001C000UL							/* Auxiliary RAM (112KB x 1024 bytes = 1C000 in Hex)" SRAM1_BASEADDR + 1C000 = RAM2_BASEADDR" */
+#define ROM_BASEADDR					0x1FFF0000UL							/* System memory */
+
+
+/**********			Base Addresses of Peripheral Buses 		**********/
+#define APB1_BASEADDR					0x40000000UL							/* Advanced Peripheral Bus */
+#define APB2_BASEADDR					(APB1_BASEADDR + APB2_OFFSETADDR)		/* Advanced Peripheral Bus  One(1) */
+#define AHB1_BASEADDR					(APB1_BASEADDR + AHB1_OFFSETADDR)		/* Advanced High-performance Bus  One(1) */
+#define AHB2_BASEADDR					(APB1_BASEADDR + AHB2_OFFSETADDR)		/* Advanced High-performance Bus  Two(2) */
+#define AHB3_BASEADDR					(APB1_BASEADDR + AHB3_OFFSETADDR)		/* Advanced High-performance Bus  Three(3) */
+
+
+/**********			Base Addresses of Peripheral Hanging on APB1 Bus 		**********/
+
+/**********			Base Addresses of Peripheral Hanging on APB2 Bus 		**********/
+
+
+
+#endif /* INC_STM32F407_H_ */

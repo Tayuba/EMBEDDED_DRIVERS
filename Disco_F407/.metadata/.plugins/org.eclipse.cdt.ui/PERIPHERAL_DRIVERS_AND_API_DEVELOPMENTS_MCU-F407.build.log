@@ -1,17 +1,10 @@
-10:44:04 **** Incremental Build of configuration Debug for project PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407 ****
+14:46:51 **** Incremental Build of configuration Debug for project PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407 ****
 make -j16 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"T:/EMBEDDED_DRIVERS/Disco_F407/PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.elf" @"objects.list"   -mcpu=cortex-m4 -T"T:\EMBEDDED_DRIVERS\Disco_F407\PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.elf
- 
 arm-none-eabi-size   PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.elf 
-arm-none-eabi-objdump -h -S  PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.elf  > "PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.list"
    text	   data	    bss	    dec	    hex	filename
     676	      8	   1568	   2252	    8cc	PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.elf
 Finished building: default.size.stdout
  
-Finished building: PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407.list
- 
 
-10:44:04 Build Finished. 0 errors, 0 warnings. (took 293ms)
+14:46:52 Build Finished. 0 errors, 0 warnings. (took 141ms)
 
