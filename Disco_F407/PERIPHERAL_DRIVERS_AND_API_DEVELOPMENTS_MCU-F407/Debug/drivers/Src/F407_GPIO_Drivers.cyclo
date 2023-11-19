@@ -1,0 +1,10 @@
+../drivers/Src/F407_GPIO_Drivers.c:27:6:GPIO_PCLK_Control	20
+../drivers/Src/F407_GPIO_Drivers.c:87:6:GPIO_Init	3
+../drivers/Src/F407_GPIO_Drivers.c:145:6:GPIO_DeInit	10
+../drivers/Src/F407_GPIO_Drivers.c:183:9:GPIO_ReadFromInputPin	1
+../drivers/Src/F407_GPIO_Drivers.c:201:10:GPIO_ReadFromInputPort	1
+../drivers/Src/F407_GPIO_Drivers.c:218:7:GPIO_WriteToOutputPin	1
+../drivers/Src/F407_GPIO_Drivers.c:235:6:GPIO_WriteToOutputPort	1
+../drivers/Src/F407_GPIO_Drivers.c:252:6:GPIO_TogglePin	1
+../drivers/Src/F407_GPIO_Drivers.c:272:6:GPIO_IRQConfig	1
+../drivers/Src/F407_GPIO_Drivers.c:289:6:GPIO_IRQHandling	1

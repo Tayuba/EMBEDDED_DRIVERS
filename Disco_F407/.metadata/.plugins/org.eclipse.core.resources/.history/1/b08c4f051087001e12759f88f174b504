@@ -247,7 +247,7 @@ typedef struct{
 #define GPIOE_RESET()				do{( RCC->AHB1RSTR |= (1 << 4)); ( RCC->AHB1RSTR &= ~(1 << 4 ));}while(0)
 #define GPIOF_RESET()				do{( RCC->AHB1RSTR |= (1 << 5)); ( RCC->AHB1RSTR &= ~(1 << 5 ));}while(0)
 #define GPIOG_RESET()				do{( RCC->AHB1RSTR |= (1 << 6)); ( RCC->AHB1RSTR &= ~(1 << 6 ));}while(0)
-#define GPIOH_RESET()				do{( RCC->AHB1RSTR |= (1 << 7)); ( RCC->AHB1RSTR &= ~(1 << 7 ));}while(0)
+#define GPIOH_RESET()				do{( RCC->AAHB1RSTR|= (1 << 7)); ( RCC->AHB1RSTR &= ~(1 << 7 ));}while(0)
 #define GPIOI_RESET()				do{( RCC->AHB1RSTR |= (1 << 8)); ( RCC->AHB1RSTR &= ~(1 << 8 ));}while(0)
 
 
