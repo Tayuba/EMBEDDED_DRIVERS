@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 
-
 #define __vol volatile
 
 /**********			Addresses Offsets		**********/
@@ -308,5 +307,5 @@ typedef struct{
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET		RESET
 
-#include "F407_GPIO_Drivers.h"
+
 #endif /* INC_STM32F407_H_ */
