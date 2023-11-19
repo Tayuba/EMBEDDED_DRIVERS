@@ -176,15 +176,12 @@ void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx){
  * @param[in]			-Takes pin number you want to read from
  * @param[in]			-
  *
- * @return				-returns read value (0 or 1)
+ * @return				-returns read value
  *
  * @Note				-None
  */
 uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
-	uint8_t value;
-	value = (uint8_t)(pGPIOx->IDR >> PinNumber & 0x00000001);
-
-	return value;
+	return 0;
 }
 
 
@@ -197,16 +194,12 @@ uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
  * @param[in]			-
  * @param[in]			-
  *
- * @return				-returns read value(16 bit data)
+ * @return				-returns read value
  *
  * @Note				-None
  */
 uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx){
-	uint16_t value;
-	value = pGPIOx->IDR;
-
-	return value;
-
+	return 0;
 }
 
 /********************************************************************************
@@ -223,13 +216,6 @@ uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx){
  * @Note				-None
  */
 void  GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t PinValue){
-	if (PinValue == GPIO_PIN_SET){
-		pGPIOx->ODR &= ~(1 << PinNumber);
-		pGPIOx->ODR |= (1 << PinNumber);
-	}else{
-		pGPIOx->ODR &= ~(1 << PinNumber);
-	}
-
 
 }
 
@@ -247,7 +233,7 @@ void  GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t P
  * @Note				-None
  */
 void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t PortValue){
-	pGPIOx->ODR = PortValue;
+
 }
 
 /********************************************************************************
@@ -264,7 +250,8 @@ void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t PortValue){
  * @Note				-None
  */
 void GPIO_TogglePin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
-	pGPIOx->ODR ^= (1 << PinNumber);
+
+
 }
 
 

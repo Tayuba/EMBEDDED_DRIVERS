@@ -223,7 +223,7 @@ uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx){
  * @Note				-None
  */
 void  GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t PinValue){
-	if (PinValue == GPIO_PIN_SET){
+	if (value == GPIO_PIN_SET){
 		pGPIOx->ODR &= ~(1 << PinNumber);
 		pGPIOx->ODR |= (1 << PinNumber);
 	}else{

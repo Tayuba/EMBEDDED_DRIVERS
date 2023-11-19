@@ -292,20 +292,20 @@ Discarded input sections
  .text.GPIO_DeInit
                 0x0000000000000000      0x16c ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_ReadFromInputPin
-                0x0000000000000000       0x18 ./drivers/Src/F407_GPIO_Drivers.o
+                0x0000000000000000       0x2a ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_ReadFromInputPort
-                0x0000000000000000       0x14 ./drivers/Src/F407_GPIO_Drivers.o
- .text.GPIO_WriteToOutputPin
                 0x0000000000000000       0x1a ./drivers/Src/F407_GPIO_Drivers.o
+ .text.GPIO_WriteToOutputPin
+                0x0000000000000000       0x5c ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_WriteToOutputPort
-                0x0000000000000000       0x16 ./drivers/Src/F407_GPIO_Drivers.o
+                0x0000000000000000       0x1c ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_TogglePin
-                0x0000000000000000       0x16 ./drivers/Src/F407_GPIO_Drivers.o
+                0x0000000000000000       0x28 ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_IRQConfig
                 0x0000000000000000       0x1c ./drivers/Src/F407_GPIO_Drivers.o
  .text.GPIO_IRQHandling
                 0x0000000000000000       0x14 ./drivers/Src/F407_GPIO_Drivers.o
- .debug_info    0x0000000000000000      0x5aa ./drivers/Src/F407_GPIO_Drivers.o
+ .debug_info    0x0000000000000000      0x5c8 ./drivers/Src/F407_GPIO_Drivers.o
  .debug_abbrev  0x0000000000000000      0x153 ./drivers/Src/F407_GPIO_Drivers.o
  .debug_aranges
                 0x0000000000000000       0x68 ./drivers/Src/F407_GPIO_Drivers.o
@@ -321,8 +321,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x1df ./drivers/Src/F407_GPIO_Drivers.o
  .debug_macro   0x0000000000000000      0x47d ./drivers/Src/F407_GPIO_Drivers.o
  .debug_macro   0x0000000000000000       0xc4 ./drivers/Src/F407_GPIO_Drivers.o
- .debug_line    0x0000000000000000      0x7ad ./drivers/Src/F407_GPIO_Drivers.o
- .debug_str     0x0000000000000000     0x5ef3 ./drivers/Src/F407_GPIO_Drivers.o
+ .debug_line    0x0000000000000000      0x7f0 ./drivers/Src/F407_GPIO_Drivers.o
+ .debug_str     0x0000000000000000     0x5ef9 ./drivers/Src/F407_GPIO_Drivers.o
  .comment       0x0000000000000000       0x44 ./drivers/Src/F407_GPIO_Drivers.o
  .debug_frame   0x0000000000000000      0x1a0 ./drivers/Src/F407_GPIO_Drivers.o
  .ARM.attributes
