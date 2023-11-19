@@ -296,9 +296,9 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x103 ./drivers/Src/F407_GPIO_Drivers.o
  .debug_macro   0x0000000000000000       0x6a ./drivers/Src/F407_GPIO_Drivers.o
  .debug_macro   0x0000000000000000      0x1df ./drivers/Src/F407_GPIO_Drivers.o
- .debug_macro   0x0000000000000000      0x414 ./drivers/Src/F407_GPIO_Drivers.o
+ .debug_macro   0x0000000000000000      0x43e ./drivers/Src/F407_GPIO_Drivers.o
  .debug_line    0x0000000000000000      0x484 ./drivers/Src/F407_GPIO_Drivers.o
- .debug_str     0x0000000000000000     0x5603 ./drivers/Src/F407_GPIO_Drivers.o
+ .debug_str     0x0000000000000000     0x5655 ./drivers/Src/F407_GPIO_Drivers.o
  .comment       0x0000000000000000       0x44 ./drivers/Src/F407_GPIO_Drivers.o
  .ARM.attributes
                 0x0000000000000000       0x2e ./drivers/Src/F407_GPIO_Drivers.o
@@ -861,7 +861,7 @@ LOAD C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_rnglists
                 0x0000000000000013       0x19 ./Startup/startup_stm32f407vgtx.o
 
-.debug_macro    0x0000000000000000     0x137b
+.debug_macro    0x0000000000000000     0x13a5
  .debug_macro   0x0000000000000000       0x72 ./Src/main.o
  .debug_macro   0x0000000000000072      0xaa8 ./Src/main.o
  .debug_macro   0x0000000000000b1a       0x22 ./Src/main.o
@@ -870,16 +870,16 @@ LOAD C:/ST/STM32CubeIDE_1.13.2/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x0000000000000c1b      0x103 ./Src/main.o
  .debug_macro   0x0000000000000d1e       0x6a ./Src/main.o
  .debug_macro   0x0000000000000d88      0x1df ./Src/main.o
- .debug_macro   0x0000000000000f67      0x414 ./Src/main.o
+ .debug_macro   0x0000000000000f67      0x43e ./Src/main.o
 
 .debug_line     0x0000000000000000      0x4eb
  .debug_line    0x0000000000000000      0x470 ./Src/main.o
  .debug_line    0x0000000000000470       0x7b ./Startup/startup_stm32f407vgtx.o
 
-.debug_str      0x0000000000000000     0x54ad
- .debug_str     0x0000000000000000     0x547e ./Src/main.o
-                                       0x55d9 (size before relaxing)
- .debug_str     0x000000000000547e       0x2f ./Startup/startup_stm32f407vgtx.o
+.debug_str      0x0000000000000000     0x54ff
+ .debug_str     0x0000000000000000     0x54d0 ./Src/main.o
+                                       0x562b (size before relaxing)
+ .debug_str     0x00000000000054d0       0x2f ./Startup/startup_stm32f407vgtx.o
                                          0x85 (size before relaxing)
 
 .debug_frame    0x0000000000000000       0x54
