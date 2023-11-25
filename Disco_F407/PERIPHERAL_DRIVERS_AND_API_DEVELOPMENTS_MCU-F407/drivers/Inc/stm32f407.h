@@ -144,9 +144,6 @@
 /**********			Base Addresses of RCC 		**********/
 #define RCC_BASEADDR					(AHB1_BASEADDR + RCC_OFFSETADDR)		/* RCC Base Address */
 
-// RCC Peripheral Definition
-#define RCC 	((RCC_RegDef_t*) RCC_BASEADDR)
-
 /**********			Base Addresses of Peripheral Hanging on AHB2 Bus 		**********/
 
 
@@ -181,6 +178,16 @@ typedef struct {
 #define GPIOJ	((GPIOx_RegDef_t*) GPIOJ_BASEADDR)
 #define GPIOK	((GPIOx_RegDef_t*) GPIOK_BASEADDR)
 
+//GPIO Port to Code conversion
+#define GPIO_BASEADDR_TO_PCODE(x)  ((x == GPIOA) ? 0 :\
+									(x == GPIOB) ? 1 :\
+									(x == GPIOC) ? 2 :\
+									(x == GPIOD) ? 3 :\
+									(x == GPIOE) ? 4 :\
+									(x == GPIOF) ? 5 :\
+									(x == GPIOG) ? 6 :\
+									(x == GPIOH) ? 7 :\
+									(x == GPIOI) ? 8 :0)
 
 // RCC Definition Structures
 typedef struct{
@@ -216,6 +223,26 @@ typedef struct{
 	__vol uint32_t PLLI2SCFGR;		/* RCC PLLI2S configuration register,							Address Offset 0x84 */
 }RCC_RegDef_t;
 
+
+// EXTI Definition Structures
+typedef struct{
+	__vol uint32_t IMR;				/* EXTI register,												Address Offset 0x00 */
+	__vol uint32_t EMR;				/* EXTI register,												Address Offset 0x04 */
+	__vol uint32_t RTSR;			/* EXTI register,												Address Offset 0x08 */
+	__vol uint32_t FTSR;			/* EXTI register,												Address Offset 0x0C */
+	__vol uint32_t SWIER;			/* EXTI register,												Address Offset 0x10 */
+	__vol uint32_t PR;				/* EXTI register,												Address Offset 0x14 */
+}EXTI_RegDef_t;
+
+
+// SYSCFG Definition Structures
+typedef struct{
+	__vol uint32_t MEMRMP;			/* SYSCFG register,												Address Offset 0x00 */
+	__vol uint32_t PMC;				/* SYSCFG register,												Address Offset 0x04 */
+	__vol uint32_t EXTICR[4];			/* SYSCFG register,											Address Offset 0x08 - 0x14 */
+	__vol uint32_t REVMADEUP[2];	/* SYSCFG register,												Address Offset 0x1C */
+	__vol uint32_t CMPCR;			/* SYSCFG register,												Address Offset 0x20 */
+}SYSCFG_RegDef_t;
 
 /**********			Clock Enable and Disable Macros					**********/
 //GPIOx Enable Macro
@@ -300,6 +327,17 @@ typedef struct{
 //SYSCFG Disable Macro
 #define SYSCFG_PCLK_DISABLE()		( RCC->APB2ENR &= ~(1 << 14 ))
 
+// RCC Peripheral Definition
+#define RCC 						((RCC_RegDef_t*) RCC_BASEADDR)
+
+
+// EXTI Peripheral Definition SYSCFG_RegDef_t
+#define EXTI 						((EXTI_RegDef_t*) EXTI_BASEADDR)
+
+
+// SYSCFG Peripheral Definition S
+#define SYSCFG 						((SYSCFG_RegDef_t*) SYSCFG_BASEADDR)
+
 /**********			Other Macros					**********/
 #define ENABLE				1
 #define DISABLE				0
@@ -307,6 +345,16 @@ typedef struct{
 #define RESET				DISABLE
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET		RESET
+
+
+/**********			IRQ Numbers					**********/
+#define IRQ_NO_EXTI0		6
+#define IRQ_NO_EXTI1		7
+#define IRQ_NO_EXTI2		8
+#define IRQ_NO_EXTI3		9
+#define IRQ_NO_EXTI4		10
+#define IRQ_NO_EXTI5_9		23
+#define IRQ_NO_EXTI10_15	40
 
 #include "F407_GPIO_Drivers.h"
 #endif /* INC_STM32F407_H_ */

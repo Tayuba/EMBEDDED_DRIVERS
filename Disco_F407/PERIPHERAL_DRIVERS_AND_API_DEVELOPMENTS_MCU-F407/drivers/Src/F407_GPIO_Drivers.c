@@ -6,8 +6,8 @@
  */
 
 
-#include 	"F407_GPIO_Drivers.h"
-#include	 <stdint.h>
+#include 	"stm32f407.h"
+
 
 // Enable Clock
 /********************************************************************************
@@ -93,8 +93,31 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 		pGPIOxHandle->pGPIOx->MODER |= temp;
 
 
-	}else{//Pin mode Config for non Interrupt
+	}else{
+		//Pin mode Config for non Interrupt
+	//1. Configure the edge detection registers
+		//1a. Configure falling edge trigger register
+		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FE_T){
+			EXTI->RTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}	//1a. Configure rising edge trigger register
+		else if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RE_T){
+			EXTI->FTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}	//1a. Configure both falling and rising edge trigger register
+		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FERE_T){
+			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+		}
+	//2. Configure the GPIO port selection in SYSCFG_EXTICR
+		uint8_t  temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
+		uint8_t  temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
+		uint8_t  portcode = GPIO_BASEADDR_TO_PCODE(pGPIOxHandle->pGPIOx);
+		SYSCFG_PCLK_ENABLE();
+		SYSCFG->EXTICR[temp1] |= portcode << (temp2 * 4);
 
+	//3. Enable the EXTI interrupt delivery using IMR
+		EXTI->IMR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 	}
 
 	// 2. Output type Config
