@@ -104,9 +104,8 @@ void GPIO_TogglePin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 
 // IRQ Configuration and Handling
-void GPIO_GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED);
+void GPIO_IRQConfig(uint8_t IRQ_Number, uint8_t IRQ_Priority, uint8_t IRQ_ED);
 void GPIO_IRQHandling(uint8_t PinNumber);
-void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_Number);
 
 
 #endif /* INC_F407_GPIO_DRIVERS_H_ */

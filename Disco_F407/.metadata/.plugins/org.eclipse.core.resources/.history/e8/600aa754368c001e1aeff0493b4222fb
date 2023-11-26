@@ -13,17 +13,14 @@
 #define __vol volatile
 
 /**********			ARM Cortex M4 Processor Addresses		**********/
-#define NVIC_ISER0_ADDR					((__vol uint32_t *)0xE000E100UL)			/* Interrupt Set-enable Register zero(0) ISER0 */
-#define NVIC_ISER1_ADDR					((__vol uint32_t *)0xE000E104UL)			/* Interrupt Set-enable Register one(1) ISER1 */
-#define NVIC_ISER2_ADDR					((__vol uint32_t *)0xE000E108UL)			/* Interrupt Set-enable Register two(2) ISER1 */
+#define NVIC_ISER0_ADDR					((__vol)0xE000E100UL)						/* Interrupt Set-enable Register zero(0) ISER0 */
+#define NVIC_ISER1_ADDR					((__vol)0xE000E104UL)						/* Interrupt Set-enable Register one(1) ISER1 */
+#define NVIC_ISER2_ADDR					((__vol)0xE000E108UL)						/* Interrupt Set-enable Register two(2) ISER1 */
 
-#define NVIC_ICER0_ADDR					((__vol uint32_t *)0XE000E180UL)			/* Interrupt Set-pending Register zero(0) ICER0 */
-#define NVIC_ICER1_ADDR					((__vol uint32_t *)0XE000E184UL)			/* Interrupt Set-pending Register one(1) ICER1 */
-#define NVIC_ICER2_ADDR					((__vol uint32_t *)0XE000E188UL)			/* Interrupt Set-pending Register two(2) ICER1 */
+#define NVIC_ICER0_ADDR					((__vol)0XE000E180UL)						/* Interrupt Set-pending Register zero(0) ICER0 */
+#define NVIC_ICER1_ADDR					((__vol)0XE000E184UL)						/* Interrupt Set-pending Register one(1) ICER1 */
+#define NVIC_ICER2_ADDR					((__vol)00XE000E188UL)						/* Interrupt Set-pending Register two(2) ICER1 */
 
-#define NVIC_IPR_BASEADDR				((__vol uint32_t *)0xE000E400UL)			/* Interrupt Priority Register Base Address */
-
-#define IMPLEMENTABLE_SECTION_BITS_PR	4											/*  Section of priority that can be implemented */
 
 
 /**********			Addresses Offsets		**********/
@@ -252,7 +249,7 @@ typedef struct{
 typedef struct{
 	__vol uint32_t MEMRMP;			/* SYSCFG register,												Address Offset 0x00 */
 	__vol uint32_t PMC;				/* SYSCFG register,												Address Offset 0x04 */
-	__vol uint32_t EXTICR[4];		/* SYSCFG register,												Address Offset 0x08 - 0x14 */
+	__vol uint32_t EXTICR[4];			/* SYSCFG register,											Address Offset 0x08 - 0x14 */
 	__vol uint32_t REVMADEUP[2];	/* SYSCFG register,												Address Offset 0x1C */
 	__vol uint32_t CMPCR;			/* SYSCFG register,												Address Offset 0x20 */
 }SYSCFG_RegDef_t;

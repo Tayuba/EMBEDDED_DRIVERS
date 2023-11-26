@@ -6,5 +6,6 @@
 ../drivers/Src/F407_GPIO_Drivers.c:248:7:GPIO_WriteToOutputPin	2
 ../drivers/Src/F407_GPIO_Drivers.c:272:6:GPIO_WriteToOutputPort	1
 ../drivers/Src/F407_GPIO_Drivers.c:289:6:GPIO_TogglePin	1
-../drivers/Src/F407_GPIO_Drivers.c:308:6:GPIO_IRQConfig	1
-../drivers/Src/F407_GPIO_Drivers.c:325:6:GPIO_IRQHandling	1
+../drivers/Src/F407_GPIO_Drivers.c:309:6:GPIO_IRQInterruptConfig	12
+../drivers/Src/F407_GPIO_Drivers.c:360:6:GPIO_IRQPriorityConfig	1
+../drivers/Src/F407_GPIO_Drivers.c:385:6:GPIO_IRQHandling	2

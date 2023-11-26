@@ -31,23 +31,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .comment      00000043  00000000  00000000  000108da  2**0
                   CONTENTS, READONLY
- 14 .debug_info   0000097b  00000000  00000000  0001091d  2**0
+ 14 .debug_info   000009d7  00000000  00000000  0001091d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 00000299  00000000  00000000  00011298  2**0
+ 15 .debug_abbrev 000002ce  00000000  00000000  000112f4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_aranges 000000b8  00000000  00000000  00011538  2**3
+ 16 .debug_aranges 000000c0  00000000  00000000  000115c8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_rnglists 0000007e  00000000  00000000  000115f0  2**0
+ 17 .debug_rnglists 00000085  00000000  00000000  00011688  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_macro  00000773  00000000  00000000  0001166e  2**0
+ 18 .debug_macro  000007ae  00000000  00000000  0001170d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   00000eb9  00000000  00000000  00011de1  2**0
+ 19 .debug_line   00000f7f  00000000  00000000  00011ebb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    00005fc1  00000000  00000000  00012c9a  2**0
+ 20 .debug_str    00006182  00000000  00000000  00012e3a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  00000224  00000000  00000000  00018c5c  2**2
+ 21 .debug_frame  0000024c  00000000  00000000  00018fbc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000079  00000000  00000000  00018e80  2**0
+ 22 .debug_line_str 00000079  00000000  00000000  00019208  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -593,10 +593,10 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  80004b2:	b087      	sub	sp, #28
  80004b4:	af00      	add	r7, sp, #0
  80004b6:	6078      	str	r0, [r7, #4]
-	uint32_t temp = 0;  //Tem register
+	uint32_t temp = 0;  //Temporal register
  80004b8:	2300      	movs	r3, #0
  80004ba:	617b      	str	r3, [r7, #20]
-	// 1. Pin mode Config for non Interrupt
+	// 1. Pin mode Configure for non Interrupt
 	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG){
  80004bc:	687b      	ldr	r3, [r7, #4]
  80004be:	795b      	ldrb	r3, [r3, #5]
@@ -638,7 +638,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  8000502:	e0d1      	b.n	80006a8 <GPIO_Init+0x1f8>
 
 	}else{
-		//Pin mode Config for non Interrupt
+		//Pin mode Configure for non Interrupt
 	//1. Configure the edge detection registers
 		//1a. Configure falling edge trigger register
 		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FE_T){
@@ -734,7 +734,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  80005a2:	430b      	orrs	r3, r1
  80005a4:	6093      	str	r3, [r2, #8]
 		}
-	//2. Configure the GPIO port selection in SYSCFG_EXTICR
+	//2. Configure the GPIO port selection in External Interrupt Configuration Register (SYSCFG_EXTICR)
 		uint8_t  temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
  80005a6:	687b      	ldr	r3, [r7, #4]
  80005a8:	791b      	ldrb	r3, [r3, #4]
@@ -844,7 +844,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  800068c:	3302      	adds	r3, #2
  800068e:	f841 2023 	str.w	r2, [r1, r3, lsl #2]
 
-	//3. Enable the EXTI interrupt delivery using IMR
+	//3. Enable the EXTI interrupt delivery using Interrupt Mask Address (IMR)
 		EXTI->IMR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
  8000692:	4b57      	ldr	r3, [pc, #348]	; (80007f0 <GPIO_Init+0x340>)
  8000694:	681b      	ldr	r3, [r3, #0]
@@ -859,7 +859,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  80006a6:	6013      	str	r3, [r2, #0]
 	}
 
-	// 2. Output type Config
+	// 2. Output type Configure
 	temp = 0;
  80006a8:	2300      	movs	r3, #0
  80006aa:	617b      	str	r3, [r7, #20]
@@ -896,7 +896,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  80006e4:	430a      	orrs	r2, r1
  80006e6:	605a      	str	r2, [r3, #4]
 
-	// 3. Speed Config
+	// 3. Speed Configure
 	temp = 0;
  80006e8:	2300      	movs	r3, #0
  80006ea:	617b      	str	r3, [r7, #20]
@@ -934,7 +934,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  8000726:	430a      	orrs	r2, r1
  8000728:	609a      	str	r2, [r3, #8]
 
-	// 4. Pull Up Pull Down Config
+	// 4. Pull Up Pull Down Configure
 	temp = 0;
  800072a:	2300      	movs	r3, #0
  800072c:	617b      	str	r3, [r7, #20]
@@ -972,7 +972,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
  8000768:	430a      	orrs	r2, r1
  800076a:	60da      	str	r2, [r3, #12]
 
-	// 5.  Alternate Functionality Config
+	// 5.  Alternate Functionality Configure
 	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ALTFUNC){
  800076c:	687b      	ldr	r3, [r7, #4]
  800076e:	795b      	ldrb	r3, [r3, #5]

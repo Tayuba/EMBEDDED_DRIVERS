@@ -303,7 +303,7 @@ void GPIO_TogglePin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
  *
  * @return				-returns nothing(None)
  *
- * @Note				-I only programmed NVIC register up to 2 because
+ * @Note				-I only programed NVIC register up to 2 because
 						 the total number of interrupts in F407 is less than 90
  */
 void GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED){
@@ -349,23 +349,15 @@ void GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED){
  * @brief				-Configure Interrupt Priority
  *
  * @param[in]			-Takes the priority of IRQ of the interrupt
- * @param[in]			-Takes IRQ number of the interrupt
+ * @param[in]			-Enable or Disable the IRQof the interrupt
  * @param[in]			-
  *
  * @return				-returns nothing(None)
  *
  * @Note				-NVIC Priority register up to 60 with each register divided into 4
- *  * @Note				-NVIC Priority register up to 60 with each register divided into 4
  */
-void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_Number){
-	//1. Select the Interrupt Priority Register (IPRx)
-	uint8_t iprx = IRQ_Number / 4; // shift to next byte, that is address of selected register
-	uint8_t iprx_bits = IRQ_Number / 4; // get the starting bit of the selected register, hence the section
-	uint8_t iprx_noBits = 8; // number of bits in each priority register section
+void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_ED){
 
-	uint8_t amount_shift = (iprx_noBits * iprx_bits) + IMPLEMENTABLE_SECTION_BITS_PR; // number of bits section + implementable bits section
-
-	*(NVIC_IPR_BASEADDR + iprx) |= (IRQ_Priority << amount_shift);
 
 }
 // IRQ Handling
@@ -383,11 +375,6 @@ void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_Number){
  * @Note				-None
  */
 void GPIO_IRQHandling(uint8_t PinNumber){
-	//Clear the EXTI PR register corresponding to the Pin number
-	if (EXTI->PR & (1 << PinNumber)){
-		//Clear
-		EXTI->PR |= (1 << PinNumber);
 
-	}
 
 }
