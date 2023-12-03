@@ -7,17 +7,17 @@
 C_SRCS += \
 ../Src/syscalls.c \
 ../Src/sysmem.c \
-../Src/toggle_pushbutton_MY_API.c 
+../Src/toggle_interruptBT_MY_API.c 
 
 OBJS += \
 ./Src/syscalls.o \
 ./Src/sysmem.o \
-./Src/toggle_pushbutton_MY_API.o 
+./Src/toggle_interruptBT_MY_API.o 
 
 C_DEPS += \
 ./Src/syscalls.d \
 ./Src/sysmem.d \
-./Src/toggle_pushbutton_MY_API.d 
+./Src/toggle_interruptBT_MY_API.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +27,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/toggle_pushbutton_MY_API.cyclo ./Src/toggle_pushbutton_MY_API.d ./Src/toggle_pushbutton_MY_API.o ./Src/toggle_pushbutton_MY_API.su
+	-$(RM) ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/toggle_interruptBT_MY_API.cyclo ./Src/toggle_interruptBT_MY_API.d ./Src/toggle_interruptBT_MY_API.o ./Src/toggle_interruptBT_MY_API.su
 
 .PHONY: clean-Src
 

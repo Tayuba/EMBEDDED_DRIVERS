@@ -1,0 +1,112 @@
+/*
+ * F407_GPIO_Drivers.h
+ *
+ *  Created on: March 17, 2023
+ *      Author: Ayuba Tahiru
+ */
+
+#ifndef INC_F407_GPIO_DRIVERS_H_
+#define INC_F407_GPIO_DRIVERS_H_
+
+#include "stm32f407.h"
+
+
+/*********** GPIOx Pin Configuration  **********/
+typedef struct {
+	uint8_t GPIO_PinNumber;					/*Check possible values @GPIO_PIN_NUMBERS*/
+	uint8_t GPIO_PinMode;					/*Check possible values @GPIO_PIN_MODES*/
+	uint8_t GPIO_PinOType;					/*Check possible values @GPIO_OUTPUT_TYPES*/
+	uint8_t GPIO_PinSpeed;					/*Check possible values @GPIO_PIN_SPEED*/
+	uint8_t GPIO_PinPuPdControl;			/*Check possible values @GPIO_CONTROL_TYPE*/
+	uint8_t GPIO_PinAltFuncMode;
+}GPIOx_PinConfig_t;
+
+
+/*********** GPIOx Handle **********/
+typedef struct {
+	GPIOx_RegDef_t *pGPIOx;				/* Holds the base address of the GPIO port of which the pin belongs */
+	GPIOx_PinConfig_t GPIO_PinConfig;	/* Holds the pin configuration of GPIOx */
+}GPIO_Handle_t;
+
+/*@GPIO_PIN_NUMBERS
+ * GPIO PIN NUMBERS
+ */
+#define GPIO_PIN_NO_0				0
+#define GPIO_PIN_NO_1				1
+#define GPIO_PIN_NO_2				2
+#define GPIO_PIN_NO_3				3
+#define GPIO_PIN_NO_4				4
+#define GPIO_PIN_NO_5				5
+#define GPIO_PIN_NO_6				6
+#define GPIO_PIN_NO_7				7
+#define GPIO_PIN_NO_8				8
+#define GPIO_PIN_NO_9				9
+#define GPIO_PIN_NO_10				10
+#define GPIO_PIN_NO_11				11
+#define GPIO_PIN_NO_12				12
+#define GPIO_PIN_NO_13				13
+#define GPIO_PIN_NO_14				14
+#define GPIO_PIN_NO_15				15
+
+
+/*@GPIO_PIN_MODES
+ * GPIO Modes
+ */
+#define GPIO_MODE_INPUT				0
+#define GPIO_MODE_OUTPUT			1
+#define GPIO_MODE_ALTFUNC			2
+#define GPIO_MODE_ANALOG			3
+#define GPIO_MODE_IT_FE_T			4
+#define GPIO_MODE_IT_RE_T			5
+#define GPIO_MODE_IT_FERE_T			6
+
+/*@GPIO_OUTPUT_TYPES
+ * GPIO output type
+ */
+#define GPIO_OTYPE_PP				0
+#define GPIO_OTYPER_OD				1
+
+
+/*@GPIO_PIN_SPEED
+ * GPIO output speed
+ */
+#define GPIO_OSPEED_LOW				0
+#define GPIO_OSPEEDR_MEDIUM			1
+#define GPIO_OSPEED_HIGH			2
+#define GPIO_OSPEEDR_VHIGH			3
+
+/*@GPIO_CONTROL_TYPE
+ * GPIO pull-up and pull-down
+ */
+#define GPIO_NO_PUPD				0
+#define GPIO_PULL_UP				1
+#define GPIO_PULL_DOWN				2
+
+
+
+/*****************************************************************************************************************
+ * 										APIs Supported Drivers
+ * ***************************************************************************************************************/
+// Enable Clock
+void GPIO_PCLK_Control(GPIOx_RegDef_t *pGPIOx, uint8_t ED);
+
+// Initialization and De-Initialization
+void GPIO_Init(GPIO_Handle_t *pGPIOxHandle);
+void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx);  //Reset from RCC RESET register
+
+
+//Read, Write data
+uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
+uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx);
+void GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t PinValue);
+void GPIO_WriteToOutputPort(GPIOx_RegDef_t *pGPIOx, uint16_t PortValue);
+void GPIO_TogglePin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber);
+
+
+// IRQ Configuration and Handling
+void GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED);
+void GPIO_IRQHandling(uint8_t PinNumber);
+void GPIO_IRQPriorityConfig(uint32_t IRQ_Priority, uint8_t IRQ_Number);
+
+
+#endif /* INC_F407_GPIO_DRIVERS_H_ */

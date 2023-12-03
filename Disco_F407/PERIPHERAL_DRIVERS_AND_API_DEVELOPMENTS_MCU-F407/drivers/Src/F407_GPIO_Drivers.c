@@ -94,7 +94,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 
 
 	}else{
-		//Pin mode Configure for non Interrupt
+		//Pin mode Configure for  Interrupt
 	//1. Configure the edge detection registers
 		//1a. Configure falling edge trigger register
 		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FE_T){
@@ -105,7 +105,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 			EXTI->FTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}	//1a. Configure both falling and rising edge trigger register
-		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FERE_T){
+		else if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FERE_T){
 			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
@@ -114,7 +114,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 		uint8_t  temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
 		uint8_t  portcode = GPIO_BASEADDR_TO_PCODE(pGPIOxHandle->pGPIOx);
 		SYSCFG_PCLK_ENABLE();
-		SYSCFG->EXTICR[temp1] |= portcode << (temp2 * 4);
+		SYSCFG->EXTICR[temp1] |= (portcode << (temp2 * 4));
 
 	//3. Enable the EXTI interrupt delivery using Interrupt Mask Address (IMR)
 		EXTI->IMR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
@@ -140,7 +140,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 
 	// 5.  Alternate Functionality Configure
 	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ALTFUNC){
-		uint8_t temp1, temp2= 0;
+		uint8_t temp1, temp2;
 		temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
 		temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 8;
 
@@ -360,10 +360,10 @@ void GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED){
 void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_Number){
 	//1. Select the Interrupt Priority Register (IPRx)
 	uint8_t iprx = IRQ_Number / 4; // shift to next byte, that is address of selected register
-	uint8_t iprx_bits = IRQ_Number / 4; // get the starting bit of the selected register, hence the section
+	uint8_t iprx_bits = IRQ_Number % 4; // get the starting bit of the selected register, hence the section
 	uint8_t iprx_noBits = 8; // number of bits in each priority register section
 
-	uint8_t amount_shift = (iprx_noBits * iprx_bits) + IMPLEMENTABLE_SECTION_BITS_PR; // number of bits section + implementable bits section
+	uint8_t amount_shift = (iprx_noBits * iprx_bits) + (iprx_noBits - IMPLEMENTABLE_SECTION_BITS_PR); // number of bits section + implementable bits section
 
 	*(NVIC_IPR_BASEADDR + iprx) |= (IRQ_Priority << amount_shift);
 

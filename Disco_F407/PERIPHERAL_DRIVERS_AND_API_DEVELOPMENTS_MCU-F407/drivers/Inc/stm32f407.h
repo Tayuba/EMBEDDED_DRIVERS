@@ -369,5 +369,23 @@ typedef struct{
 #define IRQ_NO_EXTI5_9		23
 #define IRQ_NO_EXTI10_15	40
 
+/**********			NVIC Priority Numbers					**********/
+#define NVIC_PR_NO_0		0
+#define NVIC_PR_NO_1		1
+#define NVIC_PR_NO_2		2
+#define NVIC_PR_NO_3		3
+#define NVIC_PR_NO_4		4
+#define NVIC_PR_NO_5		5
+#define NVIC_PR_NO_6		6
+#define NVIC_PR_NO_7		7
+#define NVIC_PR_NO_8		8
+#define NVIC_PR_NO_9		9
+#define NVIC_PR_NO_10		10
+#define NVIC_PR_NO_11		11
+#define NVIC_PR_NO_12		12
+#define NVIC_PR_NO_13		13
+#define NVIC_PR_NO_14		14
+#define NVIC_PR_NO_15		15
+
 #include "F407_GPIO_Drivers.h"
 #endif /* INC_STM32F407_H_ */
