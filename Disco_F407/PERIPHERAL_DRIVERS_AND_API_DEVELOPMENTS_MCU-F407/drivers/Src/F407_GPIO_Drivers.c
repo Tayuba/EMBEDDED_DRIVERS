@@ -95,7 +95,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 
 	}else{
 	//Pin mode Configure for  Interrupt
-	//1. Configure the edge detection registers
+	//1a. Configure the edge detection registers
 		//1a. Configure falling edge trigger register
 		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FE_T){
 			EXTI->RTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear rising edge before writing new values
@@ -109,37 +109,40 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 		}
-	//2. Configure the GPIO port selection in External Interrupt Configuration Register (SYSCFG_EXTICR)
+	//2b. Configure the GPIO port selection in External Interrupt Configuration Register (SYSCFG_EXTICR)
 		uint8_t  temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 4;
 		uint8_t  temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 4;
 		uint8_t  portcode = GPIO_BASEADDR_TO_PCODE(pGPIOxHandle->pGPIOx);
 		SYSCFG_PCLK_ENABLE();
 		SYSCFG->EXTICR[temp1] |= (portcode << (temp2 * 4));
 
-	//3. Enable the EXTI interrupt delivery using Interrupt Mask Address (IMR)
+	//3c. Enable the EXTI interrupt delivery using Interrupt Mask Address (IMR)
 		EXTI->IMR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 	}
 
 	// 2. Output type Configure
-	temp = 0;
-	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinOType << (pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
-	pGPIOxHandle->pGPIOx->OTYPER |= temp;
+	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_OUTPUT){
+		temp = 0;
+		temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinOType << (pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOxHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pin before writing new values
+		pGPIOxHandle->pGPIOx->OTYPER |= temp;
 
-	// 3. Speed Configure
-	temp = 0;
-	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->OSPEEDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
-	pGPIOxHandle->pGPIOx->OSPEEDR |= temp;
+		// 3. Speed Configure
+		temp = 0;
+		temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOxHandle->pGPIOx->OSPEEDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
+		pGPIOxHandle->pGPIOx->OSPEEDR |= temp;
 
-	// 4. Pull Up Pull Down Configure
-	temp = 0;
-	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->PUPDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
-	pGPIOxHandle->pGPIOx->PUPDR |= temp;
+		// 4. Pull Up Pull Down Configure
+		temp = 0;
+		temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOxHandle->pGPIOx->PUPDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
+		pGPIOxHandle->pGPIOx->PUPDR |= temp;
+	}
+
 
 	// 5.  Alternate Functionality Configure
-	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ALTFUNC){
+	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFUNC){
 		uint8_t temp1, temp2;
 		temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
 		temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 8;
