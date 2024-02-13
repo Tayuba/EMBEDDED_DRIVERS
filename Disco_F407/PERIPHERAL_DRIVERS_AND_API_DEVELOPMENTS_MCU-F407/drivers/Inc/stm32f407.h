@@ -47,7 +47,7 @@
 #define GPIOK_OFFSETADDR				0x00002800UL								/* GPIOK Offset */
 #define CRC_OFFSETADDR					0x00003000UL								/* CRC Offset */
 #define RCC_OFFSETADDR					0x00003800UL								/* RCC Offset */
-#define FLASHINTERFACE_OFFSETADDR		000003C00UL								/* Flash interface register Offset */
+#define FLASHINTERFACE_OFFSETADDR		000003C00UL									/* Flash interface register Offset */
 #define BKPSRAM_OFFSETADDR				0x00004000UL								/* BKPSRAM Offset */
 #define DMA1_OFFSETADDR					0x00006000UL								/* DMA1 Offset */
 #define DMA2_OFFSETADDR					0x00006400UL								/* DMA2 Offset */
@@ -107,7 +107,7 @@
 #define LCD_TFT_OFFSETADDR				0x00006800UL								/* LCD-TFT Offset */
 
 
-/**********			Base Addresses of Flash and SRAm		**********/
+/**********			Base Addresses of Flash and SRAM		**********/
 #define FLASH_BASEADDR					0x08000000UL							/* Main memory Base Address */
 #define SRAM1_BASEADDR					0x20000000UL							/* Main RAM (112KB) Base Address */
 #define SRAM2_BASEADDR					0x2001C000UL							/* Auxiliary RAM Base Address (112KB x 1024 bytes = 1C000 in Hex)" SRAM1_BASEADDR + 1C000 = RAM2_BASEADDR" */
@@ -257,6 +257,24 @@ typedef struct{
 	__vol uint32_t CMPCR;			/* SYSCFG register,												Address Offset 0x20 */
 }SYSCFG_RegDef_t;
 
+
+// SPI Definition Structures
+typedef struct{
+	__vol uint32_t CR1;				/* SPI register,												Address Offset 0x00 */
+	__vol uint32_t CR2;				/* SPI register,												Address Offset 0x04 */
+	__vol uint32_t SR;				/* SPI register,												Address Offset 0x08*/
+	__vol uint32_t DR;				/* SPI register,												Address Offset 0x1C */
+	__vol uint32_t CRCPR;			/* SPI register,												Address Offset 0x10 */
+	__vol uint32_t RXCRCR;			/* SPI register,												Address Offset 0x14 */
+	__vol uint32_t TXCRCR;			/* SPI register,												Address Offset 0x18 */
+	__vol uint32_t I2SCFGR;			/* SPI register,												Address Offset 0x1C */
+	__vol uint32_t I2SPR;			/* SPI register,												Address Offset 0x20 */
+}SPIx_RegDef_t;
+
+
+// RCC Peripheral Definition
+#define RCC 						((RCC_RegDef_t*) RCC_BASEADDR)
+
 /**********			Clock Enable and Disable Macros					**********/
 //GPIOx Enable Macro
 #define GPIOA_PCLK_ENABLE()			( RCC->AHB1ENR |= (1 << 0 ))
@@ -340,16 +358,17 @@ typedef struct{
 //SYSCFG Disable Macro
 #define SYSCFG_PCLK_DISABLE()		( RCC->APB2ENR &= ~(1 << 14 ))
 
-// RCC Peripheral Definition
-#define RCC 						((RCC_RegDef_t*) RCC_BASEADDR)
-
-
 // EXTI Peripheral Definition SYSCFG_RegDef_t
 #define EXTI 						((EXTI_RegDef_t*) EXTI_BASEADDR)
 
 
-// SYSCFG Peripheral Definition S
+// SYSCFG Peripheral Definition
 #define SYSCFG 						((SYSCFG_RegDef_t*) SYSCFG_BASEADDR)
+
+// SPI Peripheral Definition
+#define SPI1						((SPIx_RegDef_t*) SPI1_BASEADDR)
+#define SPI2 						((SPIx_RegDef_t*) SPI2_BASEADDR)
+#define SPI3 						((SPIx_RegDef_t*) SPI3_BASEADDR)
 
 /**********			Other Macros					**********/
 #define ENABLE				1
@@ -388,4 +407,6 @@ typedef struct{
 #define NVIC_PR_NO_15		15
 
 #include "F407_GPIO_Drivers.h"
+#include "F407_SPI_Drivers.h"
+
 #endif /* INC_STM32F407_H_ */

@@ -86,25 +86,25 @@ void GPIO_PCLK_Control(GPIOx_RegDef_t *pGPIOx, uint8_t ED){
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 	uint32_t temp = 0;  //Temporal register
-	// 1. Pin mode Configure for non Interrupt
+	// Pin mode Configure for non Interrupt
 	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG){
 		temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-		pGPIOxHandle->pGPIOx->MODER &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+		pGPIOxHandle->pGPIOx->MODER &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
 		pGPIOxHandle->pGPIOx->MODER |= temp;
 
 
 	}else{
-		//Pin mode Configure for  Interrupt
+	//Pin mode Configure for  Interrupt
 	//1. Configure the edge detection registers
 		//1a. Configure falling edge trigger register
 		if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FE_T){
-			EXTI->RTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->RTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear rising edge before writing new values
 			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
-		}	//1a. Configure rising edge trigger register
+		}	//2a. Configure rising edge trigger register
 		else if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_RE_T){
-			EXTI->FTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+			EXTI->FTSR &= ~(1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear falling edge before writing new values
 			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
-		}	//1a. Configure both falling and rising edge trigger register
+		}	//3a. Configure both falling and rising edge trigger register
 		else if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_IT_FERE_T){
 			EXTI->FTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
 			EXTI->RTSR |= (1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
@@ -123,19 +123,19 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 	// 2. Output type Configure
 	temp = 0;
 	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinOType << (pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOxHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
 	pGPIOxHandle->pGPIOx->OTYPER |= temp;
 
 	// 3. Speed Configure
 	temp = 0;
 	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->OSPEEDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOxHandle->pGPIOx->OSPEEDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
 	pGPIOxHandle->pGPIOx->OSPEEDR |= temp;
 
 	// 4. Pull Up Pull Down Configure
 	temp = 0;
 	temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
-	pGPIOxHandle->pGPIOx->PUPDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOxHandle->pGPIOx->PUPDR &= ~( 0x3 << pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber); //clear pins before writing new values
 	pGPIOxHandle->pGPIOx->PUPDR |= temp;
 
 	// 5.  Alternate Functionality Configure
@@ -144,7 +144,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 		temp1 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
 		temp2 = pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber % 8;
 
-		pGPIOxHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2));
+		pGPIOxHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2)); //clear pins before writing new values
 		pGPIOxHandle->pGPIOx->AFR[temp1] |= (pGPIOxHandle->GPIO_PinConfig.GPIO_PinAltFuncMode << (4 * temp2));
 	}
 
@@ -247,7 +247,7 @@ uint16_t GPIO_ReadFromInputPort(GPIOx_RegDef_t *pGPIOx){
  */
 void  GPIO_WriteToOutputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t PinValue){
 	if (PinValue == GPIO_PIN_SET){
-		pGPIOx->ODR &= ~(1 << PinNumber);
+		pGPIOx->ODR &= ~(1 << PinNumber); //clear pins before writing new values
 		pGPIOx->ODR |= (1 << PinNumber);
 	}else{
 		pGPIOx->ODR &= ~(1 << PinNumber);
