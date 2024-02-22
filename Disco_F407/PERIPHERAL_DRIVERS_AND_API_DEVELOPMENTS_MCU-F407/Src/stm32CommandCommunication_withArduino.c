@@ -1,10 +1,9 @@
 /*
- * stm32SendData_toArduino.c
+ * stm32CommandCommunication_withArduino.c
  *
- *  Created on: Feb 21, 2024
+ *  Created on: Feb 22, 2024
  *      Author: Ayuba Tahiru
  */
-
 
 
 #include "stm32f407.h"
@@ -14,6 +13,7 @@ void InitGPIO_toSPI2_Pins(void);
 void Init_SPI2(void);
 void delay(void);
 void ButtenPush(void);
+uint8_t SPI_ackVerify(uint8_t ack);
 
 /*
  * PB12---->SPI2_NSS
@@ -24,25 +24,47 @@ void ButtenPush(void);
  *Alternate Function Mode---->AF5
  * */
 
+
+//command codes
+#define COMMAND_LED_CTRL          0x50
+#define COMMAND_SENSOR_READ       0x51
+#define COMMAND_LED_READ          0x52
+#define COMMAND_PRINT             0x53
+#define COMMAND_ID_READ           0x54
+
+#define NACK 					  0xA5
+#define ACK 					  0xF5
+
+#define LED_ON              	  1
+#define LED_OFF                   0
+#define LED_PIN                   9
+
+//arduino analog pins
+#define ANALOG_PIN0               0
+#define ANALOG_PIN1               1
+#define ANALOG_PIN2               2
+#define ANALOG_PIN3               3
+#define ANALOG_PIN4               4
+
 int main(void){
-	// Data to send
-	char data[] = "Ayuba Tahiru";
+	// Dummy byte
+	uint8_t dummy = 0xFF;
+	uint8_t dummy_read;
+
 
 	// Function to Initialize GPIO as SPI2
 	InitGPIO_toSPI2_Pins();
-
-
 
 	// Function to Initialize SPI2
 	Init_SPI2();
 
 	// Initialize Button
 	ButtenPush();
-
+	// Enable SSOE
+	SSOE_Config(SPI2, ENABLE);
 
 	while(1){
-		// Enable SSOE
-		SSOE_Config(SPI2, ENABLE);
+
 
 		while(GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0) == FLAG_RESET);
 		delay();
@@ -50,12 +72,32 @@ int main(void){
 		// Enable SPI Protocol
 		SPI_ProtocolEnable(SPI2, ENABLE);
 
-		// Send Byte Info to Slave
-		uint8_t data_Len = strlen(data);
-		SPI_DataSend(SPI2, &data_Len, 1);
+		uint8_t ack;
+		uint8_t args[2];
 
-		// Send Data
-		SPI_DataSend(SPI2, (uint8_t*)data, data_Len);
+		// Send command to control LED, give pin number and value to turn ON or OFF
+		uint8_t ledcommand = COMMAND_LED_CTRL;
+		SPI_DataSend(SPI2, &ledcommand, 1);
+
+		// dummy read
+		SPI_DataReceive(SPI2, &dummy_read, 1);
+
+		// Send dummy byte to shift slave ack to master
+		SPI_DataSend(SPI2, &dummy, 1);
+
+		// Receive the ack from slave
+		SPI_DataReceive(SPI2, &ack, 1);
+
+//		// Send Data
+//		SPI_DataSend(SPI2, (uint8_t*)data, data_Len);
+
+		// Verify value of ack
+		if (SPI_ackVerify(ack)){
+			//// Send command to control LED, give pin number and value to turn ON or OFF
+			args[0] = LED_PIN;
+			args[1] = LED_ON;
+			SPI_DataSend(SPI2, args, 2);
+		}
 
 		// Tx Finished
 		while(Check_FlagStatus(SPI2, SPI_BUSY_FLAG));
@@ -102,6 +144,7 @@ void InitGPIO_toSPI2_Pins(void){
 	SPI_Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15;
 
 	GPIO_Init(&SPI_Pins);
+
 }
 
 void Init_SPI2(void){
@@ -156,3 +199,12 @@ void delay(void){
 	}
 }
 
+uint8_t SPI_ackVerify(uint8_t ack){
+	if(ack == ACK){
+		// Verified
+		return 1;
+	}
+	// Not verified
+	return 0;
+
+}

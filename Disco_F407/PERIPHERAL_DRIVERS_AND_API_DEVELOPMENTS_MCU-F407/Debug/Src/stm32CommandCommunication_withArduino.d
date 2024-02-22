@@ -1,4 +1,5 @@
-Src/stm32SendData_toArduino.o: ../Src/stm32SendData_toArduino.c \
+Src/stm32CommandCommunication_withArduino.o: \
+ ../Src/stm32CommandCommunication_withArduino.c \
  T:/EMBEDDED_DRIVERS/Disco_F407/PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407/drivers/Inc/stm32f407.h \
  T:/EMBEDDED_DRIVERS/Disco_F407/PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407/drivers/Inc/F407_GPIO_Drivers.h \
  T:/EMBEDDED_DRIVERS/Disco_F407/PERIPHERAL_DRIVERS_AND_API_DEVELOPMENTS_MCU-F407/drivers/Inc/stm32f407.h \

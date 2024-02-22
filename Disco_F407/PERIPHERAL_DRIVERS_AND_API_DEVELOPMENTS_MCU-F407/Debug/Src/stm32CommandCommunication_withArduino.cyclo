@@ -1,0 +1,6 @@
+../Src/stm32CommandCommunication_withArduino.c:49:5:main	4
+../Src/stm32CommandCommunication_withArduino.c:112:6:InitGPIO_toSPI2_Pins	1
+../Src/stm32CommandCommunication_withArduino.c:150:6:Init_SPI2	1
+../Src/stm32CommandCommunication_withArduino.c:180:6:ButtenPush	1
+../Src/stm32CommandCommunication_withArduino.c:196:6:delay	2
+../Src/stm32CommandCommunication_withArduino.c:202:9:SPI_ackVerify	2

@@ -5,17 +5,17 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/stm32SendData_toArduino.c \
+../Src/stm32CommandCommunication_withArduino.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
 
 OBJS += \
-./Src/stm32SendData_toArduino.o \
+./Src/stm32CommandCommunication_withArduino.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
-./Src/stm32SendData_toArduino.d \
+./Src/stm32CommandCommunication_withArduino.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
 
@@ -27,7 +27,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/stm32SendData_toArduino.cyclo ./Src/stm32SendData_toArduino.d ./Src/stm32SendData_toArduino.o ./Src/stm32SendData_toArduino.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/stm32CommandCommunication_withArduino.cyclo ./Src/stm32CommandCommunication_withArduino.d ./Src/stm32CommandCommunication_withArduino.o ./Src/stm32CommandCommunication_withArduino.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

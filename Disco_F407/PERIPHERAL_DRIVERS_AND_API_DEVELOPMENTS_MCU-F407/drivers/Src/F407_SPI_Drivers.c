@@ -189,6 +189,7 @@ void SPI_DataSend(SPIx_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t DataLen){
 		// 2. Check DFF size
 		if (pSPIx->CR1 & (1 << SPI_CR1_DFF)){
 			// 16 Bits DFF
+			//Load Data from Tx buffer into DR
 			pSPIx->DR = *((uint16_t*)pTxBuffer);
 			DataLen --;
 			DataLen --;
@@ -205,7 +206,26 @@ void SPI_DataSend(SPIx_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t DataLen){
 
 //Data Receiving
 void SPI_DataReceive(SPIx_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t DataLen){
+	while (DataLen > 0){
+		// 1. Wait for RXNE to be set
+		while (Check_FlagStatus(pSPIx, SPI_RXNE_FLAG) == FLAG_RESET);
 
+		// 2. Check DFF size
+		if (pSPIx->CR1 & (1 << SPI_CR1_DFF)){
+			// 16 Bits DFF
+			// Read Data from DR to RX buffer
+			*((uint16_t*)pRxBuffer) = pSPIx->DR;
+			DataLen --;
+			DataLen --;
+			(uint16_t*)pRxBuffer++;
+		}else{
+			// 8 Bits DFF size
+			*pRxBuffer = pSPIx->DR;
+			DataLen --;
+			pRxBuffer++;
+		}
+
+	}
 }
 
 // IRQ Configuration and ISR Handling
