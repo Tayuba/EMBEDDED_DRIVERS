@@ -5,19 +5,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/stm32SendData_toArduino.c \
 ../Src/syscalls.c \
-../Src/sysmem.c \
-../Src/toggle_interruptBT_MY_API.c 
+../Src/sysmem.c 
 
 OBJS += \
+./Src/stm32SendData_toArduino.o \
 ./Src/syscalls.o \
-./Src/sysmem.o \
-./Src/toggle_interruptBT_MY_API.o 
+./Src/sysmem.o 
 
 C_DEPS += \
+./Src/stm32SendData_toArduino.d \
 ./Src/syscalls.d \
-./Src/sysmem.d \
-./Src/toggle_interruptBT_MY_API.d 
+./Src/sysmem.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +27,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su ./Src/toggle_interruptBT_MY_API.cyclo ./Src/toggle_interruptBT_MY_API.d ./Src/toggle_interruptBT_MY_API.o ./Src/toggle_interruptBT_MY_API.su
+	-$(RM) ./Src/stm32SendData_toArduino.cyclo ./Src/stm32SendData_toArduino.d ./Src/stm32SendData_toArduino.o ./Src/stm32SendData_toArduino.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

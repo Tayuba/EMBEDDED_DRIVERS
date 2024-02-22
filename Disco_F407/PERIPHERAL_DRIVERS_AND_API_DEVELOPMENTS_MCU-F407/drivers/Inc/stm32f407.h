@@ -192,7 +192,7 @@ typedef struct {
 #define GPIOK	((GPIOx_RegDef_t*) GPIOK_BASEADDR)
 
 //GPIO Port to Code conversion
-#define GPIO_BASEADDR_TO_PCODE(x)  ((x == GPIOA) ? 0 :\
+#define  GPIO_BASEADDR_TO_PCODE(x)  ((x == GPIOA) ? 0 :\
 									(x == GPIOB) ? 1 :\
 									(x == GPIOC) ? 2 :\
 									(x == GPIOD) ? 3 :\
@@ -309,7 +309,6 @@ typedef struct{
 #define GPIOH_RESET()				do{( RCC->AHB1RSTR |= (1 << 7)); ( RCC->AHB1RSTR &= ~(1 << 7 ));}while(0)
 #define GPIOI_RESET()				do{( RCC->AHB1RSTR |= (1 << 8)); ( RCC->AHB1RSTR &= ~(1 << 8 ));}while(0)
 
-
 //I2Cx Enable Macro
 #define I2C1_PCLK_ENABLE()			( RCC->APB1ENR |= (1 << 21 ))
 #define I2C2_PCLK_ENABLE()			( RCC->APB1ENR |= (1 << 22 ))
@@ -332,6 +331,11 @@ typedef struct{
 #define SPI1_PCLK_DISABLE()			( RCC->APB2ENR &= ~(1 << 12 ))
 #define SPI2_PCLK_DISABLE()			( RCC->APB1ENR &= ~(1 << 14 ))
 #define SPI3_PCLK_DISABLE()			( RCC->APB1ENR &= ~(1 << 15 ))
+
+//SPIx Reset Macro
+#define SPI1_RESET()				do{( RCC->APB2RSTR|= (1 << 12)); ( RCC->APB2RSTR &= ~(1 << 12 ));}while(0)
+#define SPI2_RESET()				do{( RCC->APB1RSTR |= (1 << 14)); ( RCC->APB1RSTR &= ~(1 << 14));}while(0)
+#define SPI3_RESET()				do{( RCC->APB1RSTR |= (1 << 15)); ( RCC->APB1RSTR &= ~(1 << 15));}while(0)
 
 //USARTx/UARTx Enable Macro
 #define USART1_PCLK_ENABLE()		( RCC->APB2ENR |= (1 << 4 ))
@@ -370,6 +374,46 @@ typedef struct{
 #define SPI2 						((SPIx_RegDef_t*) SPI2_BASEADDR)
 #define SPI3 						((SPIx_RegDef_t*) SPI3_BASEADDR)
 
+/**********			SPI  Macros	For Bits Positions				**********/
+//CR1 Macros
+#define SPI_CR1_CPHA				0
+#define SPI_CR1_CPOL				1
+#define SPI_CR1_MSTR				2
+#define SPI_CR1_BR				 	3
+#define SPI_CR1_SPE			 		6
+#define SPI_CR1_LSBFIRST		 	7
+#define SPI_CR1_SSI		 			8
+#define SPI_CR1_SSM	 				9
+#define SPI_CR1_RXONLY 				10
+#define SPI_CR1_DFF				 	11
+#define SPI_CR1_CRCNEXT			 	12
+#define SPI_CR1_CRCEN		 		13
+#define SPI_CR1_BIDIOE		 		14
+#define SPI_CR1_BIDIMODE	 		15
+
+//CR2 Macros
+#define SPI_CR2_RXDMAEN				0
+#define SPI_CR2_TXDMAEN				1
+#define SPI_CR2_SSOE				2
+#define SPI_CR2_Reserved		 	3
+#define SPI_CR2_FRF		 			4
+#define SPI_CR2_ERRIE		 		5
+#define SPI_CR2_RXNEIE		 		6
+#define SPI_CR2_TXEIE	 			7
+#define SPI_CR2_Reserved1			8
+
+//SR Macros
+#define SPI_SR_RXNE					0
+#define SPI_SR_TXE					1
+#define SPI_SR_CHSIDE				2
+#define SPI_SR_UDR				 	3
+#define SPI_SR_CRCERR			 	4
+#define SPI_SR_MODF	 				5
+#define SPI_SR_OVR		 			6
+#define SPI_SR_BSY	 				7
+#define SPI_SR_FRE	 				8
+#define SPI_SR_Reserved				9
+
 /**********			Other Macros					**********/
 #define ENABLE				1
 #define DISABLE				0
@@ -377,6 +421,8 @@ typedef struct{
 #define RESET				DISABLE
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET		RESET
+#define FLAG_RESET 			RESET
+#define FLAG_SET 			SET
 
 
 /**********			IRQ Numbers					**********/

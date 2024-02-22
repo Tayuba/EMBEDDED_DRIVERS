@@ -86,6 +86,10 @@ void GPIO_PCLK_Control(GPIOx_RegDef_t *pGPIOx, uint8_t ED){
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOxHandle){
 	uint32_t temp = 0;  //Temporal register
+
+	// Enable clock before use
+	GPIO_PCLK_Control(pGPIOxHandle->pGPIOx, ENABLE);
+
 	// Pin mode Configure for non Interrupt
 	if (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG){
 		temp = (pGPIOxHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOxHandle->GPIO_PinConfig.GPIO_PinNumber));
@@ -208,9 +212,17 @@ void GPIO_DeInit(GPIOx_RegDef_t *pGPIOx){
  */
 uint8_t GPIO_ReadFromInputPin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
 	uint8_t value;
-	value = (uint8_t)(pGPIOx->IDR >> PinNumber & 0x00000001);
 
-	return value;
+    // Check if PinNumber is valid (0 to 15 for a 16-bit IDR)
+    if (PinNumber < 16) {
+        // Read the state of the specified pin and mask other bits
+        value = (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x01);
+    } else {
+        // Handle an invalid PinNumber (you may choose to return an error code or take appropriate action)
+        value = 0xFF;  // Using 0xFF as an indicator of an error, adjust as needed
+    }
+
+    return value;
 }
 
 
@@ -388,7 +400,7 @@ void GPIO_IRQPriorityConfig(uint8_t IRQ_Priority, uint8_t IRQ_Number){
 void GPIO_IRQHandling(uint8_t PinNumber){
 	//Clear the EXTI PR register corresponding to the Pin number
 	if (EXTI->PR & (1 << PinNumber)){
-		//Clear
+
 		EXTI->PR |= (1 << PinNumber);
 
 	}

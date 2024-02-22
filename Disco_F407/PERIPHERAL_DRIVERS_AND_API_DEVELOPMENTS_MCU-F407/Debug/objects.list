@@ -1,5 +1,6 @@
+"./Src/stm32SendData_toArduino.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"
-"./Src/toggle_interruptBT_MY_API.o"
 "./Startup/startup_stm32f407vgtx.o"
 "./drivers/Src/F407_GPIO_Drivers.o"
+"./drivers/Src/F407_SPI_Drivers.o"

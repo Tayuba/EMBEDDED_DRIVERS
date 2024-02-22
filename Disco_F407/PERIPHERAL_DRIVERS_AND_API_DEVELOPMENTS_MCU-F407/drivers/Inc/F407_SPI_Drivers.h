@@ -80,8 +80,13 @@ typedef struct {
 /*
  * @SSM
  */
-#define SPI_SSM_SW						0
 #define SPI_SSM_HW						0
+#define SPI_SSM_SW						1
+
+// SPI Flags
+#define SPI_TXE_FLAG  (1 << SPI_SR_TXE)
+#define SPI_RXNE_FLAG  (1 << SPI_SR_RXNE)
+#define SPI_BUSY_FLAG  (1 << SPI_SR_BSY)
 
 
 /*****************************************************************************************************************
@@ -89,6 +94,18 @@ typedef struct {
  * ***************************************************************************************************************/
 // Enable Clock
 void SPI_PCLK_Control(SPIx_RegDef_t *pSPIx, uint8_t ED);
+
+// Enable SPI Protocol
+void SPI_ProtocolEnable(SPIx_RegDef_t *pSPIx, uint8_t ED);
+
+// Config SSI
+void SSI_Config(SPIx_RegDef_t *pSPIx, uint8_t ED);
+
+// Config SSOE
+void SSOE_Config(SPIx_RegDef_t *pSPIx, uint8_t ED);
+
+// Check SPI Flags
+uint8_t Check_FlagStatus(SPIx_RegDef_t *pSPIx, uint32_t FlagName);
 
 // Initialization and De-Initialization
 void SPI_Init(SPI_Handle_t *pSPIxHandle);

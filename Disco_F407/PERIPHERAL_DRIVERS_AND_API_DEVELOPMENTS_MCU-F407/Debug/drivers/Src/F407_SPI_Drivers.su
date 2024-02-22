@@ -1,0 +1,12 @@
+../drivers/Src/F407_SPI_Drivers.c:24:6:SPI_PCLK_Control	16	static
+../drivers/Src/F407_SPI_Drivers.c:46:6:SPI_ProtocolEnable	16	static
+../drivers/Src/F407_SPI_Drivers.c:55:6:SSI_Config	16	static
+../drivers/Src/F407_SPI_Drivers.c:64:6:SSOE_Config	16	static
+../drivers/Src/F407_SPI_Drivers.c:87:6:SPI_Init	24	static
+../drivers/Src/F407_SPI_Drivers.c:151:6:SPI_DeInit	16	static
+../drivers/Src/F407_SPI_Drivers.c:161:9:Check_FlagStatus	16	static
+../drivers/Src/F407_SPI_Drivers.c:184:6:SPI_DataSend	24	static
+../drivers/Src/F407_SPI_Drivers.c:207:6:SPI_DataReceive	24	static
+../drivers/Src/F407_SPI_Drivers.c:212:6:SPI_IRQInterruptConfig	16	static
+../drivers/Src/F407_SPI_Drivers.c:215:6:SPI_IRQHandling	16	static
+../drivers/Src/F407_SPI_Drivers.c:218:6:SPI_IRQPriorityConfig	16	static

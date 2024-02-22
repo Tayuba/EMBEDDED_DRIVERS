@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../drivers/Src/F407_GPIO_Drivers.c 
+../drivers/Src/F407_GPIO_Drivers.c \
+../drivers/Src/F407_SPI_Drivers.c 
 
 OBJS += \
-./drivers/Src/F407_GPIO_Drivers.o 
+./drivers/Src/F407_GPIO_Drivers.o \
+./drivers/Src/F407_SPI_Drivers.o 
 
 C_DEPS += \
-./drivers/Src/F407_GPIO_Drivers.d 
+./drivers/Src/F407_GPIO_Drivers.d \
+./drivers/Src/F407_SPI_Drivers.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ drivers/Src/%.o drivers/Src/%.su drivers/Src/%.cyclo: ../drivers/Src/%.c drivers
 clean: clean-drivers-2f-Src
 
 clean-drivers-2f-Src:
-	-$(RM) ./drivers/Src/F407_GPIO_Drivers.cyclo ./drivers/Src/F407_GPIO_Drivers.d ./drivers/Src/F407_GPIO_Drivers.o ./drivers/Src/F407_GPIO_Drivers.su
+	-$(RM) ./drivers/Src/F407_GPIO_Drivers.cyclo ./drivers/Src/F407_GPIO_Drivers.d ./drivers/Src/F407_GPIO_Drivers.o ./drivers/Src/F407_GPIO_Drivers.su ./drivers/Src/F407_SPI_Drivers.cyclo ./drivers/Src/F407_SPI_Drivers.d ./drivers/Src/F407_SPI_Drivers.o ./drivers/Src/F407_SPI_Drivers.su
 
 .PHONY: clean-drivers-2f-Src
 
