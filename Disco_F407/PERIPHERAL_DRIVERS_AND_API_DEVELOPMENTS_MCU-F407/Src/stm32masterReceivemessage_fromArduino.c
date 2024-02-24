@@ -1,7 +1,7 @@
 /*
- * stm32CommandCommunication_withArduino.c
+ * stm32masterReceivemessage_fromArduino.c
  *
- *  Created on: Feb 22, 2024
+ *  Created on: Feb 24, 2024
  *      Author: Ayuba Tahiru
  */
 

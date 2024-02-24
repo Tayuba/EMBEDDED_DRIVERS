@@ -31,23 +31,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .comment      00000043  00000000  00000000  00010cde  2**0
                   CONTENTS, READONLY
- 14 .debug_info   0000124b  00000000  00000000  00010d21  2**0
+ 14 .debug_info   00001530  00000000  00000000  00010d21  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 000004fc  00000000  00000000  00011f6c  2**0
+ 15 .debug_abbrev 000005a1  00000000  00000000  00012251  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_aranges 00000158  00000000  00000000  00012468  2**3
+ 16 .debug_aranges 000001a0  00000000  00000000  000127f8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_rnglists 000000f6  00000000  00000000  000125c0  2**0
+ 17 .debug_rnglists 00000130  00000000  00000000  00012998  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_macro  00002312  00000000  00000000  000126b6  2**0
+ 18 .debug_macro  00002369  00000000  00000000  00012ac8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   000018f7  00000000  00000000  000149c8  2**0
+ 19 .debug_line   00001bf4  00000000  00000000  00014e31  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    00009f41  00000000  00000000  000162bf  2**0
+ 20 .debug_str    0000a0d2  00000000  00000000  00016a25  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  000004c4  00000000  00000000  00020200  2**2
+ 21 .debug_frame  0000061c  00000000  00000000  00020af8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000079  00000000  00000000  000206c4  2**0
+ 22 .debug_line_str 00000079  00000000  00000000  00021114  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -137,7 +137,7 @@ int main(void){
 		uint8_t ack;
 		uint8_t args[2];
 
-		// Send command to control LED, give pin number and value to turn ON or OFF
+		/*Send command to control LED, give pin number and value to turn ON or OFF*/
 		uint8_t ledcommand = COMMAND_LED_CTRL;
  8000222:	2350      	movs	r3, #80	; 0x50
  8000224:	71fb      	strb	r3, [r7, #7]
@@ -183,7 +183,7 @@ int main(void){
  8000264:	4603      	mov	r3, r0
  8000266:	2b00      	cmp	r3, #0
  8000268:	d00a      	beq.n	8000280 <main+0x98>
-			//// Send command to control LED, give pin number and value to turn ON or OFF
+			// give pin number and value to turn ON or OFF
 			args[0] = LED_PIN;
  800026a:	2309      	movs	r3, #9
  800026c:	723b      	strb	r3, [r7, #8]
@@ -306,7 +306,7 @@ void InitGPIO_toSPI2_Pins(void){
 
 void Init_SPI2(void){
  8000300:	b580      	push	{r7, lr}
- 8000302:	b084      	sub	sp, #16
+ 8000302:	b088      	sub	sp, #32
  8000304:	af00      	add	r7, sp, #0
 	// Call My API SPI2 Handle typedef struct
 	SPI_Handle_t SPI2_Pins;
@@ -314,7 +314,7 @@ void Init_SPI2(void){
 	// Select SPI2
 	SPI2_Pins.pSPIx = SPI2;
  8000306:	4b0c      	ldr	r3, [pc, #48]	; (8000338 <Init_SPI2+0x38>)
- 8000308:	607b      	str	r3, [r7, #4]
+ 8000308:	603b      	str	r3, [r7, #0]
 
 /*
 	************** Configure SPI2 *****************
@@ -322,41 +322,41 @@ void Init_SPI2(void){
 	// 1. SPI Bus as Full Duplex
 	SPI2_Pins.SPI_PinConfig.SPI_BusConfig = SPI_BUS_CONFIG_FULL_DUPLEX;
  800030a:	2301      	movs	r3, #1
- 800030c:	727b      	strb	r3, [r7, #9]
+ 800030c:	717b      	strb	r3, [r7, #5]
 	// 2. SPI Mode as Master
 	SPI2_Pins.SPI_PinConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
  800030e:	2301      	movs	r3, #1
- 8000310:	723b      	strb	r3, [r7, #8]
+ 8000310:	713b      	strb	r3, [r7, #4]
 	// 3. SPI Speed as Maximum (2MHz)
 	SPI2_Pins.SPI_PinConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV8;
  8000312:	2302      	movs	r3, #2
- 8000314:	72bb      	strb	r3, [r7, #10]
+ 8000314:	71bb      	strb	r3, [r7, #6]
 	// 4. SPI DFF  as 8 Bits
 	SPI2_Pins.SPI_PinConfig.SPI_DFF = SPI_DFF_8BITS;
  8000316:	2300      	movs	r3, #0
- 8000318:	72fb      	strb	r3, [r7, #11]
+ 8000318:	71fb      	strb	r3, [r7, #7]
 	// 5. Clock Polarity
 	SPI2_Pins.SPI_PinConfig.SPI_CPOL = SPI_CPOL_LOW;
  800031a:	2300      	movs	r3, #0
- 800031c:	733b      	strb	r3, [r7, #12]
+ 800031c:	723b      	strb	r3, [r7, #8]
 	// 6. Clock Phase
 	SPI2_Pins.SPI_PinConfig.SPI_CPHA = SPI_CPHA_LOW;
  800031e:	2300      	movs	r3, #0
- 8000320:	737b      	strb	r3, [r7, #13]
+ 8000320:	727b      	strb	r3, [r7, #9]
 	// 7. Slave management
 	SPI2_Pins.SPI_PinConfig.SPI_SSM = SPI_SSM_HW;
  8000322:	2300      	movs	r3, #0
- 8000324:	73bb      	strb	r3, [r7, #14]
+ 8000324:	72bb      	strb	r3, [r7, #10]
 
 	// Initialize configuration
 	SPI_Init(&SPI2_Pins);
- 8000326:	1d3b      	adds	r3, r7, #4
+ 8000326:	463b      	mov	r3, r7
  8000328:	4618      	mov	r0, r3
  800032a:	f000 fba9 	bl	8000a80 <SPI_Init>
 
 }
  800032e:	bf00      	nop
- 8000330:	3710      	adds	r7, #16
+ 8000330:	3720      	adds	r7, #32
  8000332:	46bd      	mov	sp, r7
  8000334:	bd80      	pop	{r7, pc}
  8000336:	bf00      	nop
@@ -1815,8 +1815,11 @@ void SPI_DataSend(SPIx_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t DataLen){
  8000bdc:	bd80      	pop	{r7, pc}
 
 08000bde <SPI_DataReceive>:
-
-//Data Receiving
+ *
+ * @return				-returns nothing(None)
+ *
+ * @Note				-This is a blocking / Polling call function
+ */
 void SPI_DataReceive(SPIx_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t DataLen){
  8000bde:	b580      	push	{r7, lr}
  8000be0:	b084      	sub	sp, #16

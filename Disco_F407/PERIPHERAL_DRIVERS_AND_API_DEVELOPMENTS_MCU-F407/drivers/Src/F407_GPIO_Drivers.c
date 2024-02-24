@@ -313,7 +313,7 @@ void GPIO_TogglePin(GPIOx_RegDef_t *pGPIOx, uint8_t PinNumber){
  * @brief				-Configure Interrupt
  *
  * @param[in]			-Takes IRQ number of the interrupt
- * @param[in]			-Takes the priority of IRQ of the interrupt
+ * @param[in]			-
  * @param[in]			-Enable or Disable the IRQof the interrupt
  *
  * @return				-returns nothing(None)

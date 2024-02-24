@@ -25,8 +25,14 @@ typedef struct {
 
 /*********** SPIx Handle **********/
 typedef struct {
-	SPIx_RegDef_t *pSPIx;					/* Holds the base address of the SPI port of which the pin belongs */
+	SPIx_RegDef_t 	 *pSPIx;				/* Holds the base address of the SPI port of which the pin belongs */
 	SPIx_PinConfig_t SPI_PinConfig;			/* Holds the pin configuration of SPIx */
+	uint8_t 		 *pTxBuffer;			/* To store Tx buffer address*/
+	uint8_t 		 *pRxBuffer;			/* To store Rx buffer address */
+	uint32_t 		 TxLen;					/* To store Tx len */
+	uint32_t 		 RxLen;					/* To store Rx len */
+	uint8_t 		 TxState;				/* To store Tx state */
+	uint8_t 		 RxState;				/* To store Rx state  */
 }SPI_Handle_t;
 
 /*
@@ -88,6 +94,19 @@ typedef struct {
 #define SPI_RXNE_FLAG  (1 << SPI_SR_RXNE)
 #define SPI_BUSY_FLAG  (1 << SPI_SR_BSY)
 
+/*
+ * @SPI States
+ * */
+#define SPI_READY						0
+#define SPI_BUSY_IN_RX					1
+#define SPI_BUSY_IN_TX					2
+
+/*
+ * @Occurring Events
+ */
+#define SPI_TX_EVENT_CMPLT				1
+#define SPI_RX_EVENT_CMPLT				2
+#define SPI_OVERRUN_EVENT_CMPLT			3
 
 /*****************************************************************************************************************
  * 										APIs Supported Drivers
@@ -107,6 +126,18 @@ void SSOE_Config(SPIx_RegDef_t *pSPIx, uint8_t ED);
 // Check SPI Flags
 uint8_t Check_FlagStatus(SPIx_RegDef_t *pSPIx, uint32_t FlagName);
 
+// Clear Overrun Flag
+void SPI_OVRFlagClear(SPI_Handle_t *pSPIxHandle);
+
+// Close Transmission
+void SPI_CloseTx(SPI_Handle_t *pSPIxHandle);
+
+// Close Reception
+void SPI_CloseRx(SPI_Handle_t *pSPIxHandle);
+
+// Application callback
+void SPI_Callback(SPI_Handle_t *pSPIxHandle, uint8_t SPI_EVENT_Type);
+
 // Initialization and De-Initialization
 void SPI_Init(SPI_Handle_t *pSPIxHandle);
 void SPI_DeInit(SPIx_RegDef_t *pSPIx);  //Reset from RCC RESET register
@@ -115,6 +146,10 @@ void SPI_DeInit(SPIx_RegDef_t *pSPIx);  //Reset from RCC RESET register
 //Data Sending and Receiving
 void SPI_DataSend(SPIx_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t DataLen);
 void SPI_DataReceive(SPIx_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t DataLen);
+
+//Data Sending and Receiving with Interrupt
+uint8_t  SPI_DataSendIT(SPI_Handle_t *pSPIxHandle, uint8_t *pTxBuffer, uint32_t DataLen);
+uint8_t SPI_DataReceiveIT(SPI_Handle_t *pSPIxHandle, uint8_t *pRxBuffer, uint32_t DataLen);
 
 // IRQ Configuration and ISR Handling
 void SPI_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t IRQ_ED);
